@@ -12,5 +12,5 @@ public class OrderModel
     
     public string ModelProductionDate { get; set; }
     
-    public List<WorkUnitModel> WorkUnitModels { get; set; }
+    public List<WorkUnitModel> WorkUnits { get; set; }
 }

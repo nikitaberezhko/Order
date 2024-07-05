@@ -8,14 +8,13 @@ public class ApiOrderMappingProfile : Profile
 {
     public ApiOrderMappingProfile()
     {
+        // TODO: Add mapping logic here
         // Requests -> Request models
         CreateMap<CreateOrderRequest, CreateOrderModel>();
 
         CreateMap<DeleteOrderRequest, DeleteOrderModel>();
 
         CreateMap<GetOrderByIdRequest, GetOrderByIdModel>();
-
-        CreateMap<AddManagerToOrderRequest, AddManagerToOrderModel>();
         
         CreateMap<UpdateManagerInOrderRequest, UpdateManagerInOrderModel>();
         

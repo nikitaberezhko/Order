@@ -1,23 +1,20 @@
-using Services.Services.Models.Request.Order;
-using Services.Services.Models.Response;
+using Domain;
 
 namespace Services.Repositories.Abstractions;
 
 public interface IOrderRepository
 {
-    public Task<Guid> CreateOrderAsync(CreateOrderModel model);
+    public Task<Guid> CreateOrderAsync(Order model);
 
-    public Task<List<OrderModel>> GetByIdAsync(GetOrderByIdModel model);
+    public Task<Order> GetByIdAsync(Order model);
 
-    public Task<List<OrderModel>> GetAllOrders();
+    public Task<List<Order>> GetAllOrders();
     
-    public Task<List<OrderModel>> GetOrdersByClientIdAsync(GetOrdersByClientIdModel model);
+    public Task<List<Order>> GetOrdersByClientIdAsync(Order model);
     
-    public Task<List<OrderModel>> GetOrdersByManagerIdAsync(GetOrdersByManagerIdModel model);
+    public Task<List<Order>> GetOrdersByManagerIdAsync(Order model);
     
-    public Task<OrderModel> UpdateManagerInOrderAsync(UpdateManagerInOrderModel model);
+    public Task<Order> UpdateManagerInOrderAsync(Order model);
     
-    public Task<OrderModel> AddManagerToOrderAsync(AddManagerToOrderModel model);
-    
-    public Task<OrderModel> DeleteOrderAsync(DeleteOrderModel model);
+    public Task<Order> DeleteOrderAsync(Order model);
 }
