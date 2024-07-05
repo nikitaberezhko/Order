@@ -55,6 +55,7 @@ public class OrderRepository(DbContext dbContext) : IOrderRepository
 
     public async Task<List<Order>> GetOrdersByManagerIdAsync(Order model)
     {
+        // TODO: Check list for null
         var orders = await dbContext.Set<Order>().Where(x => x.ManagerId == model.ManagerId).ToListAsync();
         if(orders != null && orders.Any())
             return orders;

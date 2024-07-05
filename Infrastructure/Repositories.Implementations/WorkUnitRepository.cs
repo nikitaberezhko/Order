@@ -3,7 +3,6 @@ using Exceptions.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Services.Repositories.Abstractions;
-using Services.Services.Models.Request.WorkUnit;
 
 namespace Infrastructure.Repositories.Implementations;
 
@@ -38,7 +37,7 @@ public class WorkUnitRepository(DbContext dbContext) : IWorkUnitRepository
         };
     }
 
-    public async Task<WorkUnit> RemoveWorkUnitAsync(WorkUnit model)
+    public async Task<WorkUnit> DeleteWorkUnitAsync(WorkUnit model)
     {
         var workUnit = await dbContext.Set<WorkUnit>().FirstOrDefaultAsync(x => x.Id == model.Id);
         if (workUnit != null)
