@@ -3,9 +3,9 @@ using Services.Services.Models.Request.Order;
 
 namespace Services.Validators.Order;
 
-public class UpdateManagerInOrderValidator : AbstractValidator<UpdateManagerInOrderModel>
+public class UpdateOrderValidator : AbstractValidator<UpdateOrderModel>
 {
-    public UpdateManagerInOrderValidator()
+    public UpdateOrderValidator()
     {
         RuleFor(x => x.Id)
             .NotEmpty()
@@ -14,5 +14,11 @@ public class UpdateManagerInOrderValidator : AbstractValidator<UpdateManagerInOr
         RuleFor(x => x.ManagerId)
             .NotEmpty()
             .NotEqual(Guid.Empty);
+
+        RuleFor(x => x.Model)
+            .NotEmpty();
+        
+        RuleFor(x => x.ModelProductionDate)
+            .NotEmpty();
     }
 }

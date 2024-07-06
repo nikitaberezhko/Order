@@ -11,7 +11,6 @@ public class ServicesOrderMappingProfile : Profile
     {
         // Request models -> Domain
         CreateMap<CreateOrderModel, Order>()
-            .ForMember(d => d.Id, map => map.MapFrom(c => c.Id))
             .ForMember(d => d.ClientId, map => map.MapFrom(c => c.ClientId))
             .ForMember(d => d.Model, map => map.MapFrom(c => c.Model))
             .ForMember(d => d.ModelProductionDate, map => map.MapFrom(c => c.ModelProductionDate))
@@ -37,14 +36,14 @@ public class ServicesOrderMappingProfile : Profile
             .ForMember(d => d.WorkUnits, map => map.Ignore())
             .ForMember(d => d.IsDeleted, map => map.Ignore());
 
-        CreateMap<UpdateManagerInOrderModel, Order>()
+        CreateMap<UpdateOrderModel, Order>()
             .ForMember(d => d.Id, map => map.MapFrom(c => c.Id))
             .ForMember(d => d.ManagerId, map => map.MapFrom(c => c.ManagerId))
-            .ForMember(d => d.ClientId, map => map.Ignore())
-            .ForMember(d => d.Model, map => map.Ignore())
-            .ForMember(d => d.ModelProductionDate, map => map.Ignore())
+            .ForMember(d => d.Model, map => map.MapFrom(c => c.Model))
+            .ForMember(d => d.ModelProductionDate, map => map.MapFrom(c => c.ModelProductionDate))
             .ForMember(d => d.WorkUnits, map => map.Ignore())
-            .ForMember(d => d.IsDeleted, map => map.Ignore());
+            .ForMember(d => d.IsDeleted, map => map.Ignore())
+            .ForMember(d => d.ClientId, map => map.Ignore());
 
         CreateMap<GetOrdersByClientIdModel, Order>()
             .ForMember(d => d.Id, map => map.Ignore())

@@ -4,6 +4,7 @@ using Exceptions.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Services.Repositories.Abstractions;
+using Services.Services.Abstractions;
 using Services.Services.Models.Request.Order;
 using Services.Services.Models.Response;
 
@@ -17,7 +18,7 @@ public class OrderService(
     IValidator<GetOrderByIdModel> getOrderByIdValidator,
     IValidator<GetOrdersByClientIdModel> getOrdersByClientIdValidator,
     IValidator<GetOrdersByManagerIdModel> getOrdersByManagerIdValidator,
-    IValidator<UpdateManagerInOrderModel> updateManagerInOrderValidator)
+    IValidator<UpdateOrderModel> updateManagerInOrderValidator) : IOrderService
 {
     public async Task<Guid> CreateOrder(CreateOrderModel model)
     {
@@ -105,7 +106,7 @@ public class OrderService(
         return result;
     }
     
-    public async Task<OrderModel> UpdateManagerInOrder(UpdateManagerInOrderModel model)
+    public async Task<OrderModel> UpdateOrder(UpdateOrderModel model)
     {
         var validationResult = await updateManagerInOrderValidator.ValidateAsync(model);
         if (!validationResult.IsValid)
@@ -116,7 +117,7 @@ public class OrderService(
                 StatusCode = StatusCodes.Status400BadRequest,
             };
         
-        var order = await orderRepository.UpdateManagerInOrderAsync(mapper.Map<Order>(model));
+        var order = await orderRepository.UpdateOrderAsync(mapper.Map<Order>(model));
         var result = mapper.Map<OrderModel>(order);
         return result;
     }

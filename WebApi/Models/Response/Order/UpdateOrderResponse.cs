@@ -1,8 +1,6 @@
-using Services.Services.Models.Response;
-
 namespace WebApi.Models.Response.Order;
 
-public class DeleteOrderResponse
+public class UpdateOrderResponse
 {
     public Guid ClientId { get; set; }
     
@@ -11,6 +9,4 @@ public class DeleteOrderResponse
     public string Model { get; set; }
     
     public string ModelProductionDate { get; set; }
-    
-    public List<WorkUnitModel> WorkUnits { get; set; }
 }

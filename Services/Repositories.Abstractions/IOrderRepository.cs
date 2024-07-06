@@ -14,7 +14,7 @@ public interface IOrderRepository
     
     public Task<List<Order>> GetOrdersByManagerIdAsync(Order model);
     
-    public Task<Order> UpdateManagerInOrderAsync(Order model);
+    public Task<Order> UpdateOrderAsync(Order model);
     
     public Task<Order> DeleteOrderAsync(Order model);
 }

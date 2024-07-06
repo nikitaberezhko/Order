@@ -28,6 +28,8 @@ public class DataContext : DbContext
 
         modelBuilder.Entity<WorkUnit>().Property(x => x.Id)
             .HasColumnName("id");
+        modelBuilder.Entity<WorkUnit>().Property(x => x.OrderId)
+            .HasColumnName("order_id");
         modelBuilder.Entity<WorkUnit>().Property(x => x.Name)
             .HasColumnName("name");
         modelBuilder.Entity<WorkUnit>().Property(x => x.Description)

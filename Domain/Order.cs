@@ -6,7 +6,7 @@ public class Order
     
     public Guid ClientId { get; set; }
     
-    public Guid ManagerId { get; set; }
+    public Guid? ManagerId { get; set; }
     
     public string Model { get; set; }
     

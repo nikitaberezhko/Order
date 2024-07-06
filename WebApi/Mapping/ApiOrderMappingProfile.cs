@@ -12,7 +12,6 @@ public class ApiOrderMappingProfile : Profile
     {
         // Requests -> Request models
         CreateMap<CreateOrderRequest, CreateOrderModel>()
-            .ForMember(d => d.Id, map => map.MapFrom(c => c.Id))
             .ForMember(d => d.ClientId, map => map.MapFrom(c => c.ClientId))
             .ForMember(d => d.Model, map => map.MapFrom(c => c.Model))
             .ForMember(d => d.ModelProductionDate, map => map.MapFrom(c => c.ModelProductionDate));
@@ -29,9 +28,11 @@ public class ApiOrderMappingProfile : Profile
         CreateMap<GetOrdersByManagerIdRequest, GetOrdersByManagerIdModel>()
             .ForMember(d => d.ManagerId, map => map.MapFrom(c => c.ManagerId));
         
-        CreateMap<UpdateManagerInOrderRequest, UpdateManagerInOrderModel>()
+        CreateMap<UpdateOrderRequest, UpdateOrderModel>()
             .ForMember(d => d.Id, map => map.MapFrom(c => c.Id))
-            .ForMember(d => d.ManagerId, map => map.MapFrom(c => c.ManagerId));
+            .ForMember(d => d.ManagerId, map => map.MapFrom(c => c.ManagerId))
+            .ForMember(d => d.Model, map => map.MapFrom(c => c.Model))
+            .ForMember(d => d.ModelProductionDate, map => map.MapFrom(c => c.ModelProductionDate));
         
 
         // Response models -> Responses 
@@ -51,8 +52,11 @@ public class ApiOrderMappingProfile : Profile
             .ForMember(d => d.Model, map => map.MapFrom(c => c.Model))
             .ForMember(d => d.ModelProductionDate, map => map.MapFrom(c => c.ModelProductionDate))
             .ForMember(d => d.WorkUnits, map => map.MapFrom(c => c.WorkUnits));
-        
-        CreateMap<OrderModel, UpdateManagerInOrderResponse>()
-            .ForMember(d => d.ManagerId, map => map.MapFrom(c => c.ManagerId));
+
+        CreateMap<OrderModel, UpdateOrderResponse>()
+            .ForMember(d => d.ClientId, map => map.MapFrom(c => c.ClientId))
+            .ForMember(d => d.ManagerId, map => map.MapFrom(c => c.ManagerId))
+            .ForMember(d => d.Model, map => map.MapFrom(c => c.Model))
+            .ForMember(d => d.ModelProductionDate, map => map.MapFrom(c => c.ModelProductionDate));
     }
 }

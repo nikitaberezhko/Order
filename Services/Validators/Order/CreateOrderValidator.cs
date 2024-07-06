@@ -7,10 +7,6 @@ public class CreateOrderValidator : AbstractValidator<CreateOrderModel>
 {
     public CreateOrderValidator()
     {
-        RuleFor(x => x.Id)
-            .NotEmpty()
-            .NotEqual(Guid.Empty);
-        
         RuleFor(x => x.ClientId)
             .NotEmpty()
             .NotEqual(Guid.Empty);

@@ -11,7 +11,7 @@ public class OrderRepository(DbContext dbContext) : IOrderRepository
     public async Task<Guid> CreateOrderAsync(Order model)
     {
         model.Id = Guid.NewGuid();
-        model.ManagerId = Guid.Empty;
+        model.ManagerId = null;
         model.IsDeleted = false;
         
         await dbContext.Set<Order>().AddAsync(model);
@@ -41,7 +41,8 @@ public class OrderRepository(DbContext dbContext) : IOrderRepository
 
     public async Task<List<Order>> GetOrdersByClientIdAsync(Order model)
     {
-        var orders = await dbContext.Set<Order>().Where(x => x.ClientId == model.ClientId).ToListAsync();
+        var orders = await dbContext.Set<Order>()
+            .Where(x => x.ClientId == model.ClientId).ToListAsync();
         if(orders != null && orders.Any())
             return orders;
         
@@ -56,7 +57,8 @@ public class OrderRepository(DbContext dbContext) : IOrderRepository
     public async Task<List<Order>> GetOrdersByManagerIdAsync(Order model)
     {
         // TODO: Check list for null
-        var orders = await dbContext.Set<Order>().Where(x => x.ManagerId == model.ManagerId).ToListAsync();
+        var orders = await dbContext.Set<Order>()
+            .Where(x => x.ManagerId == model.ManagerId).ToListAsync();
         if(orders != null && orders.Any())
             return orders;
         
@@ -68,12 +70,12 @@ public class OrderRepository(DbContext dbContext) : IOrderRepository
         };
     }
 
-    public async Task<Order> UpdateManagerInOrderAsync(Order model)
+    public async Task<Order> UpdateOrderAsync(Order model)
     {
         var order = await dbContext.Set<Order>().FirstOrDefaultAsync(x => x.Id == model.Id);
         if (order != null)
         {
-            order.ManagerId = model.ManagerId;
+            dbContext.Entry(order).CurrentValues.SetValues(model);
             await dbContext.SaveChangesAsync();
             return order;
         }

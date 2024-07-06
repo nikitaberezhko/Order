@@ -4,6 +4,7 @@ using Exceptions.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Services.Repositories.Abstractions;
+using Services.Services.Abstractions;
 using Services.Services.Models.Request.WorkUnit;
 using Services.Services.Models.Response;
 
@@ -14,7 +15,7 @@ public class WorkUnitService(
     IMapper mapper,
     IValidator<CreateWorkUnitModel> createWorkUnitValidator,
     IValidator<UpdateWorkUnitModel> updateWorkUnitValidator,
-    IValidator<DeleteWorkUnitModel> deleteWorkUnitValidator)
+    IValidator<DeleteWorkUnitModel> deleteWorkUnitValidator) : IWorkUnitService
 {
     public async Task<Guid> CreateWorkUnit(CreateWorkUnitModel model)
     {
