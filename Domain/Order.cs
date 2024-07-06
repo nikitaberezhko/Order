@@ -12,7 +12,7 @@ public class Order
     
     public string ModelProductionDate { get; set; }
     
-    public ICollection<WorkUnit> WorkUnits { get; set; }
+    public virtual ICollection<WorkUnit> WorkUnits { get; set; }
     
     public bool IsDeleted { get; set; }
 }

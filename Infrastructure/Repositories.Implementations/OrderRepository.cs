@@ -75,6 +75,7 @@ public class OrderRepository(DbContext dbContext) : IOrderRepository
         var order = await dbContext.Set<Order>().FirstOrDefaultAsync(x => x.Id == model.Id);
         if (order != null)
         {
+            model.ClientId = order.ClientId;
             dbContext.Entry(order).CurrentValues.SetValues(model);
             await dbContext.SaveChangesAsync();
             return order;

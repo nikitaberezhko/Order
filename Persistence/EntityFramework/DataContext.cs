@@ -11,6 +11,9 @@ public class DataContext : DbContext
     
     public DbSet<WorkUnit> WorkUnits { get; set; }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => 
+        optionsBuilder.UseLazyLoadingProxies();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Order>().Property(x => x.Id)

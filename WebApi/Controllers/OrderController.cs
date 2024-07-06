@@ -5,7 +5,6 @@ using Services.Services.Abstractions;
 using Services.Services.Models.Request.Order;
 using WebApi.Models;
 using WebApi.Models.Request.Order;
-using WebApi.Models.Request.WorkUnit;
 using WebApi.Models.Response.Order;
 
 namespace WebApi.Controllers;
@@ -31,6 +30,26 @@ public class OrderController(
             }
         });
 
+        return response;
+    }
+    
+    [HttpPut]
+    public async Task<ActionResult<CommonResponse<UpdateOrderResponse>>> UpdateOrder(
+        UpdateOrderRequest request)
+    {
+        var order = await orderService.UpdateOrder(mapper.Map<UpdateOrderModel>(request));
+        
+        var response = new CommonResponse<UpdateOrderResponse>
+        {
+            Data = new UpdateOrderResponse
+            {
+                ClientId = order.ClientId,
+                ManagerId = order.ManagerId,
+                Model = order.Model,
+                ModelProductionDate = order.ModelProductionDate
+            }
+        };
+        
         return response;
     }
     
@@ -126,23 +145,5 @@ public class OrderController(
         return response;
     }
     
-    [HttpPut]
-    public async Task<ActionResult<CommonResponse<UpdateOrderResponse>>> UpdateOrder(
-        UpdateOrderRequest request)
-    {
-        var order = await orderService.UpdateOrder(mapper.Map<UpdateOrderModel>(request));
-        
-        var response = new CommonResponse<UpdateOrderResponse>
-        {
-            Data = new UpdateOrderResponse
-            {
-                ClientId = order.ClientId,
-                ManagerId = order.ManagerId,
-                Model = order.Model,
-                ModelProductionDate = order.ModelProductionDate
-            }
-        };
-        
-        return response;
-    }
+    
 }

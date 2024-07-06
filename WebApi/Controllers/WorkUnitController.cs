@@ -20,13 +20,13 @@ public class WorkUnitController(
     {
         var workUnit = await workUnitService.CreateWorkUnit(mapper.Map<CreateWorkUnitModel>(request));
 
-        var response = new CommonResponse<CreateWorkUnitResponse>
+        var response = new CreatedResult(nameof(CreateWorkUnit), new CommonResponse<CreateWorkUnitResponse>
         {
             Data = new CreateWorkUnitResponse
             {
                 Id = workUnit
             }
-        };
+        });
 
         return response;
     }

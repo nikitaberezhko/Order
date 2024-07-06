@@ -8,5 +8,5 @@ public class UpdateOrderRequest
     
     public string Model { get; set; }
     
-    public DateTime ModelProductionDate { get; set; }
+    public string ModelProductionDate { get; set; }
 }

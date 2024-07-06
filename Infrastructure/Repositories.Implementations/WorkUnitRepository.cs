@@ -23,6 +23,7 @@ public class WorkUnitRepository(DbContext dbContext) : IWorkUnitRepository
         var workUnit = await dbContext.Set<WorkUnit>().FirstOrDefaultAsync(x => x.Id == model.Id);
         if (workUnit != null)
         {
+            model.OrderId = workUnit.OrderId;
             dbContext.Entry(workUnit).CurrentValues.SetValues(model);
             await dbContext.SaveChangesAsync();
             
