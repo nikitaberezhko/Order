@@ -4,7 +4,6 @@ using Exceptions.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Services.Repositories.Abstractions;
-using Services.Services.Models.Request.Order;
 using Services.Services.Models.Request.WorkUnit;
 using Services.Services.Models.Response;
 
@@ -43,7 +42,7 @@ public class WorkUnitService(
                 StatusCode = StatusCodes.Status400BadRequest,
             };
         
-        var workUnit =await workUnitRepository.UpdateWorkUnitAsync(mapper.Map<WorkUnit>(model));
+        var workUnit = await workUnitRepository.UpdateWorkUnitAsync(mapper.Map<WorkUnit>(model));
         var result = mapper.Map<WorkUnitModel>(workUnit);
         return result;
     }

@@ -1,6 +1,8 @@
 using AutoMapper;
 using Services.Services.Models.Request.Order;
+using Services.Services.Models.Response;
 using WebApi.Models.Request.Order;
+using WebApi.Models.Response.Order;
 
 namespace WebApi.Mapping;
 
@@ -8,21 +10,49 @@ public class ApiOrderMappingProfile : Profile
 {
     public ApiOrderMappingProfile()
     {
-        // TODO: Add mapping logic here
         // Requests -> Request models
-        CreateMap<CreateOrderRequest, CreateOrderModel>();
+        CreateMap<CreateOrderRequest, CreateOrderModel>()
+            .ForMember(d => d.Id, map => map.MapFrom(c => c.Id))
+            .ForMember(d => d.ClientId, map => map.MapFrom(c => c.ClientId))
+            .ForMember(d => d.Model, map => map.MapFrom(c => c.Model))
+            .ForMember(d => d.ModelProductionDate, map => map.MapFrom(c => c.ModelProductionDate));
 
-        CreateMap<DeleteOrderRequest, DeleteOrderModel>();
+        CreateMap<DeleteOrderRequest, DeleteOrderModel>()
+            .ForMember(d => d.Id, map => map.MapFrom(c => c.Id));
 
-        CreateMap<GetOrderByIdRequest, GetOrderByIdModel>();
+        CreateMap<GetOrderByIdRequest, GetOrderByIdModel>()
+            .ForMember(d => d.Id, map => map.MapFrom(c => c.Id));
         
-        CreateMap<UpdateManagerInOrderRequest, UpdateManagerInOrderModel>();
+        CreateMap<GetOrdersByClientIdRequest, GetOrdersByClientIdModel>()
+            .ForMember(d => d.ClientId, map => map.MapFrom(c => c.ClientId));
+
+        CreateMap<GetOrdersByManagerIdRequest, GetOrdersByManagerIdModel>()
+            .ForMember(d => d.ManagerId, map => map.MapFrom(c => c.ManagerId));
         
-        CreateMap<GetOrdersByClientIdRequest, GetOrdersByClientIdModel>();
-        
-        CreateMap<GetOrdersByManagerIdRequest, GetOrdersByManagerIdModel>();
+        CreateMap<UpdateManagerInOrderRequest, UpdateManagerInOrderModel>()
+            .ForMember(d => d.Id, map => map.MapFrom(c => c.Id))
+            .ForMember(d => d.ManagerId, map => map.MapFrom(c => c.ManagerId));
         
 
         // Response models -> Responses 
+        CreateMap<OrderModel, CreateOrderResponse>()
+            .ForMember(d => d.Id, map => map.MapFrom(c => c.Id));
+        
+        CreateMap<OrderModel, DeleteOrderResponse>()
+            .ForMember(d => d.ClientId, map => map.MapFrom(c => c.ClientId))
+            .ForMember(d => d.ManagerId, map => map.MapFrom(c => c.ManagerId))
+            .ForMember(d => d.Model, map => map.MapFrom(c => c.Model))
+            .ForMember(d => d.ModelProductionDate, map => map.MapFrom(c => c.ModelProductionDate))
+            .ForMember(d => d.WorkUnits, map => map.MapFrom(c => c.WorkUnits));
+        
+        CreateMap<OrderModel, GetOrderByIdResponse>()
+            .ForMember(d => d.ClientId, map => map.MapFrom(c => c.ClientId))
+            .ForMember(d => d.ManagerId, map => map.MapFrom(c => c.ManagerId))
+            .ForMember(d => d.Model, map => map.MapFrom(c => c.Model))
+            .ForMember(d => d.ModelProductionDate, map => map.MapFrom(c => c.ModelProductionDate))
+            .ForMember(d => d.WorkUnits, map => map.MapFrom(c => c.WorkUnits));
+        
+        CreateMap<OrderModel, UpdateManagerInOrderResponse>()
+            .ForMember(d => d.ManagerId, map => map.MapFrom(c => c.ManagerId));
     }
 }

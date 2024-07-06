@@ -4,8 +4,6 @@ namespace WebApi.Models.Response.Order;
 
 public class DeleteOrderResponse
 {
-    public Guid Id { get; set; }
-    
     public Guid ClientId { get; set; }
     
     public Guid ManagerId { get; set; }

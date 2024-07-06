@@ -4,5 +4,5 @@ namespace WebApi.Models.Response.Order;
 
 public class GetOrdersByManagerIdResponse
 {
-    List<OrderModel> Orders { get; set; }
+    public List<OrderModel> Orders { get; set; }
 }
