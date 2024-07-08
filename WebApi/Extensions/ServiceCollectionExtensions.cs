@@ -1,5 +1,7 @@
 using Asp.Versioning;
 using FluentValidation;
+using Infrastructure.Settings;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Persistence.EntityFramework;
 using Services.Mapping;
@@ -67,6 +69,24 @@ public static class ServiceCollectionExtensions
             typeof(ApiOrderMappingProfile),
             typeof(ApiWorkUnitMappingProfile));
         
+        return services;
+    }
+
+    public static IServiceCollection ConfigureMassTransit(this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        var rmqSettings = configuration.GetSection("RmqSettings").Get<RmqSettings>();
+        
+        services.AddMassTransit(options =>
+        {
+            options.UsingRabbitMq((context, cfg) =>
+                cfg.Host(rmqSettings.Host, rmqSettings.Vhost, h =>
+                {
+                    h.Username(rmqSettings.Username);
+                    h.Password(rmqSettings.Password);
+                }));
+        });
+
         return services;
     }
 }

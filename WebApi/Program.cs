@@ -1,4 +1,7 @@
+using Infrastructure.Bus.Implementations.Producers;
 using Infrastructure.Repositories.Implementations;
+using Infrastructure.Settings;
+using Services.Bus.Abstractions;
 using Services.Repositories.Abstractions;
 using Services.Services.Abstractions;
 using Services.Services.Implementations;
@@ -15,6 +18,8 @@ public class Program
 
         var services = builder.Services;
 
+        services.Configure<RmqSettings>(builder.Configuration.GetSection("RmqSettings"));
+        
         services.AddControllers();
         
         // Extensions
@@ -23,6 +28,9 @@ public class Program
             "DefaultConnectionString")!);
         services.ConfigureValidators();
         services.ConfigureAutoMapper();
+        services.ConfigureMassTransit(builder.Configuration);
+
+        services.AddScoped<ICreateOrderProducer, CreateOrderProducer>();
 
         // Repositories
         services.AddScoped<IOrderRepository, OrderRepository>();

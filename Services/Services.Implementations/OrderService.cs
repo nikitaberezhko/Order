@@ -3,6 +3,7 @@ using Domain;
 using Exceptions.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using Services.Bus.Abstractions;
 using Services.Repositories.Abstractions;
 using Services.Services.Abstractions;
 using Services.Services.Models.Request.Order;
@@ -18,7 +19,8 @@ public class OrderService(
     IValidator<GetOrderByIdModel> getOrderByIdValidator,
     IValidator<GetOrdersByClientIdModel> getOrdersByClientIdValidator,
     IValidator<GetOrdersByManagerIdModel> getOrdersByManagerIdValidator,
-    IValidator<UpdateOrderModel> updateManagerInOrderValidator) : IOrderService
+    IValidator<UpdateOrderModel> updateManagerInOrderValidator,
+    ICreateOrderProducer createOrderProducer) : IOrderService
 {
     public async Task<Guid> CreateOrder(CreateOrderModel model)
     {
@@ -32,6 +34,12 @@ public class OrderService(
             };
 
         var result = await orderRepository.CreateOrderAsync(mapper.Map<Order>(model));
+        
+        await createOrderProducer.NotifyOrderCreated(new()
+        {
+            OrderId = result
+        });
+        
         return result;
     }
     
