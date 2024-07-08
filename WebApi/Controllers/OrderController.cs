@@ -90,7 +90,7 @@ public class OrderController(
         return response;
     }
     
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     public async Task<ActionResult<CommonResponse<GetOrderByIdResponse>>> GetOrderById(
         [FromRoute] GetOrderByIdRequest request)
     {
@@ -111,11 +111,12 @@ public class OrderController(
         return response;
     }
     
-    [HttpGet("clients/{clientId}")]
+    [HttpGet("clients/{clientId:guid}")]
     public async Task<ActionResult<CommonResponse<GetOrdersByClientIdResponse>>> GetOrdersByClientId(
         [FromRoute] GetOrdersByClientIdRequest request)
     {
-        var orders = await orderService.GetOrdersByClientId(mapper.Map<GetOrdersByClientIdModel>(request));
+        var orders = await orderService.GetOrdersByClientId(
+            mapper.Map<GetOrdersByClientIdModel>(request));
         
         var response = new CommonResponse<GetOrdersByClientIdResponse>
         {
@@ -128,7 +129,7 @@ public class OrderController(
         return response;
     }
     
-    [HttpGet("managers/{managerId}")]
+    [HttpGet("managers/{managerId:guid}")]
     public async Task<ActionResult<CommonResponse<GetOrdersByManagerIdResponse>>> GetOrdersByManagerId(
         [FromRoute] GetOrdersByManagerIdRequest request)
     {

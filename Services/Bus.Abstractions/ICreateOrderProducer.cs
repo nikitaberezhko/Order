@@ -1,5 +1,4 @@
 using BusModels;
-using Domain;
 
 namespace Services.Bus.Abstractions;
 
