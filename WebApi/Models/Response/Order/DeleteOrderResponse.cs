@@ -1,5 +1,3 @@
-using Services.Services.Models.Response;
-
 namespace WebApi.Models.Response.Order;
 
 public class DeleteOrderResponse
@@ -12,5 +10,5 @@ public class DeleteOrderResponse
     
     public string ModelProductionDate { get; set; }
     
-    public List<WorkUnitModel> WorkUnits { get; set; }
+    public List<WorkUnitData> WorkUnits { get; set; }
 }

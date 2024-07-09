@@ -2,6 +2,7 @@ using AutoMapper;
 using Services.Services.Models.Request.Order;
 using Services.Services.Models.Response;
 using WebApi.Models.Request.Order;
+using WebApi.Models.Response;
 using WebApi.Models.Response.Order;
 
 namespace WebApi.Mapping;
@@ -58,5 +59,13 @@ public class ApiOrderMappingProfile : Profile
             .ForMember(d => d.ManagerId, map => map.MapFrom(c => c.ManagerId))
             .ForMember(d => d.Model, map => map.MapFrom(c => c.Model))
             .ForMember(d => d.ModelProductionDate, map => map.MapFrom(c => c.ModelProductionDate));
+        
+        CreateMap<OrderModel, OrderData>()
+            .ForMember(d => d.Id, map => map.MapFrom(c => c.Id))
+            .ForMember(d => d.ClientId, map => map.MapFrom(c => c.ClientId))
+            .ForMember(d => d.ManagerId, map => map.MapFrom(c => c.ManagerId))
+            .ForMember(d => d.Model, map => map.MapFrom(c => c.Model))
+            .ForMember(d => d.ModelProductionDate, map => map.MapFrom(c => c.ModelProductionDate))
+            .ForMember(d => d.WorkUnits, map => map.MapFrom(c => c.WorkUnits));
     }
 }

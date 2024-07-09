@@ -5,6 +5,7 @@ using Services.Services.Abstractions;
 using Services.Services.Models.Request.Order;
 using WebApi.Models;
 using WebApi.Models.Request.Order;
+using WebApi.Models.Response;
 using WebApi.Models.Response.Order;
 
 namespace WebApi.Controllers;
@@ -67,7 +68,7 @@ public class OrderController(
                 ManagerId = order.ManagerId,
                 Model = order.Model,
                 ModelProductionDate = order.ModelProductionDate,
-                WorkUnits = order.WorkUnits
+                WorkUnits = mapper.Map<List<WorkUnitData>>(order.WorkUnits)
             }
         };
         
@@ -83,7 +84,7 @@ public class OrderController(
         {
             Data = new GetAllOrdersResponse
             {
-                Orders = orders
+                Orders = mapper.Map<List<OrderData>>(orders)
             }
         };
         
@@ -104,7 +105,7 @@ public class OrderController(
                 ManagerId = order.ManagerId,
                 Model = order.Model,
                 ModelProductionDate = order.ModelProductionDate,
-                WorkUnits = order.WorkUnits
+                WorkUnits = mapper.Map<List<WorkUnitData>>(order.WorkUnits)
             }
         };
         
@@ -122,7 +123,7 @@ public class OrderController(
         {
             Data = new GetOrdersByClientIdResponse
             {
-                Orders = orders
+                Orders = mapper.Map<List<OrderData>>(orders)
             }
         };
         
@@ -139,7 +140,7 @@ public class OrderController(
         {
             Data = new GetOrdersByManagerIdResponse
             {
-                Orders = orders
+                Orders = mapper.Map<List<OrderData>>(orders)
             }
         };
         
